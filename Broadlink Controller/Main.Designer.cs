@@ -44,7 +44,7 @@
             this.ToolsMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.CodeConverterMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.HelpMenu = new System.Windows.Forms.ToolStripMenuItem();
-            this.HelpButton = new System.Windows.Forms.ToolStripMenuItem();
+            this.HelpHelpMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.AboutMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.Log = new System.Windows.Forms.RichTextBox();
             this.MainContainer = new System.Windows.Forms.SplitContainer();
@@ -100,7 +100,7 @@
             this.LoadListMenu.Name = "LoadListMenu";
             this.LoadListMenu.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
             this.LoadListMenu.Size = new System.Drawing.Size(253, 26);
-            this.LoadListMenu.Text = "Load Device List";
+            this.LoadListMenu.Text = "&Load Device List";
             // 
             // SaveListMenu
             // 
@@ -108,7 +108,7 @@
             this.SaveListMenu.Name = "SaveListMenu";
             this.SaveListMenu.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
             this.SaveListMenu.Size = new System.Drawing.Size(253, 26);
-            this.SaveListMenu.Text = "Save Device List";
+            this.SaveListMenu.Text = "&Save Device List";
             // 
             // toolStripSeparator3
             // 
@@ -140,14 +140,14 @@
             this.ScanMenu.Name = "ScanMenu";
             this.ScanMenu.ShortcutKeys = System.Windows.Forms.Keys.F5;
             this.ScanMenu.Size = new System.Drawing.Size(224, 26);
-            this.ScanMenu.Text = "Refresh";
+            this.ScanMenu.Text = "&Refresh";
             // 
             // DirectConnectMenu
             // 
             this.DirectConnectMenu.Image = ((System.Drawing.Image)(resources.GetObject("DirectConnectMenu.Image")));
             this.DirectConnectMenu.Name = "DirectConnectMenu";
             this.DirectConnectMenu.Size = new System.Drawing.Size(224, 26);
-            this.DirectConnectMenu.Text = "Direct Connect";
+            this.DirectConnectMenu.Text = "Direct &Connect";
             // 
             // toolStripSeparator1
             // 
@@ -160,7 +160,7 @@
             this.AddToNetworkMenu.Name = "AddToNetworkMenu";
             this.AddToNetworkMenu.ShortcutKeys = System.Windows.Forms.Keys.F9;
             this.AddToNetworkMenu.Size = new System.Drawing.Size(224, 26);
-            this.AddToNetworkMenu.Text = "Add To Network";
+            this.AddToNetworkMenu.Text = "Add To &Network";
             // 
             // ToolsMenu
             // 
@@ -175,29 +175,30 @@
             this.CodeConverterMenu.Image = ((System.Drawing.Image)(resources.GetObject("CodeConverterMenu.Image")));
             this.CodeConverterMenu.Name = "CodeConverterMenu";
             this.CodeConverterMenu.Size = new System.Drawing.Size(224, 26);
-            this.CodeConverterMenu.Text = "Code Converter";
+            this.CodeConverterMenu.Text = "Code Con&verter";
             // 
             // HelpMenu
             // 
             this.HelpMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.HelpButton,
+            this.HelpHelpMenu,
             this.AboutMenu});
             this.HelpMenu.Name = "HelpMenu";
             this.HelpMenu.Size = new System.Drawing.Size(55, 24);
             this.HelpMenu.Text = "&Help";
             // 
-            // HelpButton
+            // HelpHelpMenu
             // 
-            this.HelpButton.Image = ((System.Drawing.Image)(resources.GetObject("HelpButton.Image")));
-            this.HelpButton.Name = "HelpButton";
-            this.HelpButton.Size = new System.Drawing.Size(133, 26);
-            this.HelpButton.Text = "Help";
+            this.HelpHelpMenu.Image = ((System.Drawing.Image)(resources.GetObject("HelpHelpMenu.Image")));
+            this.HelpHelpMenu.Name = "HelpHelpMenu";
+            this.HelpHelpMenu.ShortcutKeys = System.Windows.Forms.Keys.F1;
+            this.HelpHelpMenu.Size = new System.Drawing.Size(224, 26);
+            this.HelpHelpMenu.Text = "&Help";
             // 
             // AboutMenu
             // 
             this.AboutMenu.Image = ((System.Drawing.Image)(resources.GetObject("AboutMenu.Image")));
             this.AboutMenu.Name = "AboutMenu";
-            this.AboutMenu.Size = new System.Drawing.Size(133, 26);
+            this.AboutMenu.Size = new System.Drawing.Size(224, 26);
             this.AboutMenu.Text = "A&bout";
             // 
             // Log
@@ -359,7 +360,7 @@
         private System.Windows.Forms.ColumnHeader DeviceType;
         private System.Windows.Forms.ToolStripMenuItem learningToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripMenuItem HelpButton;
+        private System.Windows.Forms.ToolStripMenuItem HelpHelpMenu;
         private System.Windows.Forms.ToolStripMenuItem LoadListMenu;
         private System.Windows.Forms.ToolStripMenuItem SaveListMenu;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;

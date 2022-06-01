@@ -19,7 +19,6 @@ namespace Broadlink_Controller
         {
             InitializeComponent();
 
-            //DirectConnectMenu.Click += DirectConnectMenu_Click;
             CodeConverterMenu.Click += CodeConverterMenu_Click;
             ScanMenu.Click += ScanMenu_Click;
             AddToNetworkMenu.Click += AddToNetworkMenu_Click;
@@ -27,6 +26,18 @@ namespace Broadlink_Controller
             CopyMACAddress.Click += CopyMACAddress_Click;
             SaveListMenu.Click += SaveListMenu_Click;
             LoadListMenu.Click += LoadListMenu_Click;
+            HelpHelpMenu.Click += HelpHelpMenu_Click;
+            AboutMenu.Click += AboutMenu_Click;
+        }
+
+        private void AboutMenu_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(String.Format("Broadlink Controller\nVersion {0}\nCopyright 2022 Stewart Cossey", Application.ProductVersion.ToString()), "About");
+        }
+
+        private void HelpHelpMenu_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         private async void LoadListMenu_Click(object sender, EventArgs e)

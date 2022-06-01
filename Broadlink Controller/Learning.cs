@@ -15,19 +15,21 @@ namespace Broadlink_Controller
 {
     public partial class Learning : Form
     {
-        private Rm device;
+
+        private readonly Rm device;
+
+        CancellationTokenSource learningCanceller;
+        private bool isLearning = false;
+
         public Learning(IDevice device)
         {
             InitializeComponent();
 
             this.device = (Rm)device;
 
-            learningCanceller = new CancellationTokenSource();
+            learningCanceller = new();
             learningCanceller.Cancel();
         }
-
-        CancellationTokenSource learningCanceller;
-        private bool isLearning = false;
 
         private async void Learning_Load(object sender, EventArgs e)
         {
@@ -128,7 +130,7 @@ namespace Broadlink_Controller
 
         private async Task<bool> Learn(string key = "")
         {
-            learningCanceller = new CancellationTokenSource();
+            learningCanceller = new();
             try
             {
                 StatusMessage.Text = key == "" ? "Learning..." : String.Format("Press key {0}...", key);
@@ -153,17 +155,6 @@ namespace Broadlink_Controller
             SendCommandButton.Enabled = !learning;
         }
 
-        //private async void keypadToolStripMenuItem1_Click(object sender, EventArgs e)
-        //{
-        //    IsLearning();
-        //    for (int i = 0; i < 10; i++)
-        //    {
-        //        bool cancelled = await Learn(i.ToString());
-        //        if (cancelled) break;
-        //    }
-        //    IsLearning(false);
-        //}
-
         private async void LearnButton_ButtonClick(object sender, EventArgs e)
         {
             IsLearning();
@@ -187,9 +178,121 @@ namespace Broadlink_Controller
             await LearnCodeList(new string[] { "Left", "Right", "Up", "Down", "Ok", "Back" });
         }
 
+        private string[] GenNumbers(string prefix, int min, int max, int maxfan, bool tempFirst)
+        {
+            List<string> i = new();
+            if (tempFirst)
+            {
+                for (int s = 0; s <= maxfan; s++)
+                {
+                    for (int j = min; j <= max; j++)
+                    {
+                        i.Add(String.Format("{0}_Speed{1}_Temp{2}", prefix, s, j));
+                    }
+                }
+            }
+            else
+            {
+                for (int j = min; j <= max; j++)
+                {
+                    for (int s = 0; s <= maxfan; s++)
+                    {
+                        i.Add(String.Format("{0}_Speed{1}_Temp{2}", prefix, s, j));
+                    }
+                }
+            }
+
+            return i.ToArray();
+        }
+
         private async void LearnHeatpumpMenu_Click(object sender, EventArgs e)
         {
+            List<string> i = new();
+            HeatPump hp = new();
+            if (hp.ShowDialog() == DialogResult.OK)
+            {
+                if (hp.FanMode.Checked)
+                {
+                    if (hp.FanNoTemp.Checked)
+                    {
+                        for (int s = 0; s <= (int)hp.MaxFanSpeed.Value; s++)
+                        {
+                            i.Add(String.Format("{0}_Speed{1}", "Fan", s));
+                        }
+                        if (hp.SwivelNonToggle.Checked)
+                        {
+                            for (int s = 0; s <= (int)hp.MaxFanSpeed.Value; s++)
+                            {
+                                i.Add(String.Format("{0}_Speed{1}", "Fan_Swing", s));
+                            }
 
+                        }
+                    }
+                    else
+                    {
+                        i.AddRange(GenNumbers("Fan", (int)hp.MinTemp.Value, (int)hp.MaxTemp.Value, (int)hp.MaxFanSpeed.Value, hp.ByTemp.Checked));
+                        if (hp.SwivelNonToggle.Checked)
+                        {
+                            i.AddRange(GenNumbers("Fan_Swing", (int)hp.MinTemp.Value, (int)hp.MaxTemp.Value, (int)hp.MaxFanSpeed.Value, hp.ByTemp.Checked));
+                        }
+                    }
+                }
+
+                if (hp.AutoMode.Checked)
+                {
+                    i.AddRange(GenNumbers("Auto", (int)hp.MinTemp.Value, (int)hp.MaxTemp.Value, (int)hp.MaxFanSpeed.Value, hp.ByTemp.Checked));
+                    if (hp.SwivelNonToggle.Checked)
+                    {
+                        i.AddRange(GenNumbers("Auto_Swing", (int)hp.MinTemp.Value, (int)hp.MaxTemp.Value, (int)hp.MaxFanSpeed.Value, hp.ByTemp.Checked));
+                    }
+                }
+
+                if (hp.CoolMode.Checked)
+                {
+                    i.AddRange(GenNumbers("Cool", (int)hp.MinTemp.Value, (int)hp.MaxTemp.Value, (int)hp.MaxFanSpeed.Value, hp.ByTemp.Checked));
+                    if (hp.SwivelNonToggle.Checked)
+                    {
+                        i.AddRange(GenNumbers("Cool_Swing", (int)hp.MinTemp.Value, (int)hp.MaxTemp.Value, (int)hp.MaxFanSpeed.Value, hp.ByTemp.Checked));
+                    }
+                }
+
+                if (hp.DryMode.Checked)
+                {
+                    if (hp.DryNoFan.Checked)
+                    {
+                        for (int j = (int)hp.MinTemp.Value; j <= (int)hp.MaxTemp.Value; j++)
+                        {
+                            i.Add(String.Format("{0}_Temp{1}", "Dry", j));
+                        }
+                        if (hp.SwivelNonToggle.Checked)
+                        {
+                            for (int j = (int)hp.MinTemp.Value; j <= (int)hp.MaxTemp.Value; j++)
+                            {
+                                i.Add(String.Format("{0}_Temp{1}", "Dry_Swing", j));
+                            }
+                        }
+                    }
+                    else
+                    {
+                        i.AddRange(GenNumbers("Dry", (int)hp.MinTemp.Value, (int)hp.MaxTemp.Value, (int)hp.MaxFanSpeed.Value, hp.ByTemp.Checked));
+                        if (hp.SwivelNonToggle.Checked)
+                        {
+                            i.AddRange(GenNumbers("Dry_Swing", (int)hp.MinTemp.Value, (int)hp.MaxTemp.Value, (int)hp.MaxFanSpeed.Value, hp.ByTemp.Checked));
+                        }
+                    }
+                }
+
+                if (hp.HeatMode.Checked)
+                {
+                    i.AddRange(GenNumbers("Heat", (int)hp.MinTemp.Value, (int)hp.MaxTemp.Value, (int)hp.MaxFanSpeed.Value, hp.ByTemp.Checked));
+                    if (hp.SwivelNonToggle.Checked)
+                    {
+                        i.AddRange(GenNumbers("Heat_Swing", (int)hp.MinTemp.Value, (int)hp.MaxTemp.Value, (int)hp.MaxFanSpeed.Value, hp.ByTemp.Checked));
+                    }
+                }
+
+                await LearnCodeList(i.ToArray());
+            }
         }
 
         private async void LearnKeypadMenu_Click(object sender, EventArgs e)
@@ -197,14 +300,9 @@ namespace Broadlink_Controller
             await LearnCodeList(new string[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" });
         }
 
-        private void AddPrefixMenu_Click(object sender, EventArgs e)
-        {
-            
-        }
-
         private async void ExportButton_Click(object sender, EventArgs e)
         {
-            SaveFileDialog sfd = new SaveFileDialog();
+            SaveFileDialog sfd = new();
             sfd.Filter = "openHAB Map File|*.map";
             sfd.Title = "Export File";
             sfd.AddExtension = true;
@@ -212,11 +310,11 @@ namespace Broadlink_Controller
 
             if (sfd.ShowDialog() == DialogResult.OK)
             {
-                FileInfo file = new FileInfo(sfd.FileName);
+                FileInfo file = new(sfd.FileName);
                 switch (file.Extension)
                 {
                     case ".map":
-                        StringBuilder sb = new StringBuilder();
+                        StringBuilder sb = new();
                         for (int i = 0; i < Codes.Items.Count; i++)
                         {
                             sb.AppendJoin("=", Codes.Items[i].Text.Replace("=", ""), Codes.Items[i].SubItems[1].Text);

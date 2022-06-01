@@ -40,6 +40,7 @@
             this.ExportButton = new System.Windows.Forms.ToolStripButton();
             this.ClearButton = new System.Windows.Forms.ToolStripButton();
             this.DeleteButton = new System.Windows.Forms.ToolStripButton();
+            this.RenameButton = new System.Windows.Forms.ToolStripButton();
             this.SendCommandButton = new System.Windows.Forms.ToolStripButton();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.StatusMessage = new System.Windows.Forms.ToolStripStatusLabel();
@@ -49,7 +50,6 @@
             this.CommandName = new System.Windows.Forms.ColumnHeader();
             this.CommandCode = new System.Windows.Forms.ColumnHeader();
             this.LearnList = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.RenameButton = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -89,21 +89,21 @@
             // LearnKeypadMenu
             // 
             this.LearnKeypadMenu.Name = "LearnKeypadMenu";
-            this.LearnKeypadMenu.Size = new System.Drawing.Size(224, 26);
+            this.LearnKeypadMenu.Size = new System.Drawing.Size(220, 26);
             this.LearnKeypadMenu.Text = "Keypad";
             this.LearnKeypadMenu.Click += new System.EventHandler(this.LearnKeypadMenu_Click);
             // 
             // LearnHeatpumpMenu
             // 
             this.LearnHeatpumpMenu.Name = "LearnHeatpumpMenu";
-            this.LearnHeatpumpMenu.Size = new System.Drawing.Size(224, 26);
+            this.LearnHeatpumpMenu.Size = new System.Drawing.Size(220, 26);
             this.LearnHeatpumpMenu.Text = "Heat Pump";
             this.LearnHeatpumpMenu.Click += new System.EventHandler(this.LearnHeatpumpMenu_Click);
             // 
             // LearnDirectionsMenu
             // 
             this.LearnDirectionsMenu.Name = "LearnDirectionsMenu";
-            this.LearnDirectionsMenu.Size = new System.Drawing.Size(224, 26);
+            this.LearnDirectionsMenu.Size = new System.Drawing.Size(220, 26);
             this.LearnDirectionsMenu.Text = "Directions/Ok/Back";
             this.LearnDirectionsMenu.Click += new System.EventHandler(this.LearnDirectionsMenu_Click);
             // 
@@ -151,6 +151,15 @@
             this.DeleteButton.Size = new System.Drawing.Size(77, 24);
             this.DeleteButton.Text = "Delete";
             this.DeleteButton.Click += new System.EventHandler(this.DeleteButton_Click);
+            // 
+            // RenameButton
+            // 
+            this.RenameButton.Image = ((System.Drawing.Image)(resources.GetObject("RenameButton.Image")));
+            this.RenameButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.RenameButton.Name = "RenameButton";
+            this.RenameButton.Size = new System.Drawing.Size(87, 24);
+            this.RenameButton.Text = "Rename";
+            this.RenameButton.Click += new System.EventHandler(this.RenameButton_Click);
             // 
             // SendCommandButton
             // 
@@ -201,7 +210,9 @@
             this.CommandCode});
             this.Codes.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Codes.FullRowSelect = true;
+            this.Codes.LabelEdit = true;
             this.Codes.Location = new System.Drawing.Point(0, 27);
+            this.Codes.MultiSelect = false;
             this.Codes.Name = "Codes";
             this.Codes.Size = new System.Drawing.Size(1031, 387);
             this.Codes.TabIndex = 2;
@@ -225,15 +236,6 @@
             this.LearnList.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.LearnList.Name = "LearnList";
             this.LearnList.Size = new System.Drawing.Size(61, 4);
-            // 
-            // RenameButton
-            // 
-            this.RenameButton.Image = ((System.Drawing.Image)(resources.GetObject("RenameButton.Image")));
-            this.RenameButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.RenameButton.Name = "RenameButton";
-            this.RenameButton.Size = new System.Drawing.Size(87, 24);
-            this.RenameButton.Text = "Rename";
-            this.RenameButton.Click += new System.EventHandler(this.RenameButton_Click);
             // 
             // Learning
             // 
